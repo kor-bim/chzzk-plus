@@ -7,18 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B6A5B66300A2D06002FB591 /* chzzk-plus Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2B6A5B65300A2D06002FB591 /* chzzk-plus Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2B6A5B70300A2D06002FB591 /* chzzk-plus Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2B6A5B6F300A2D06002FB591 /* chzzk-plus Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2B6A5B67300A2D06002FB591 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2B6A5B2C300A2D04002FB591 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2B6A5B64300A2D06002FB591;
-			remoteInfo = "chzzk-plus Extension (iOS)";
-		};
 		2B6A5B71300A2D06002FB591 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2B6A5B2C300A2D04002FB591 /* Project object */;
@@ -29,17 +21,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2B6A5B98300A2D06002FB591 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				2B6A5B66300A2D06002FB591 /* chzzk-plus Extension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2B6A5BA2300A2D06002FB591 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,43 +35,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2B6A5B48300A2D06002FB591 /* chzzk-plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chzzk-plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6A5B5A300A2D06002FB591 /* chzzk-plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chzzk-plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B6A5B65300A2D06002FB591 /* chzzk-plus Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "chzzk-plus Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6A5B6F300A2D06002FB591 /* chzzk-plus Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "chzzk-plus Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2B6A5B93300A2D06002FB591 /* Exceptions for "Shared (App)" folder in "chzzk-plus (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"/Localized: Resources/Main.html",
-				Assets.xcassets,
-				Resources/Icon.png,
-				Resources/Script.js,
-				Resources/Style.css,
-				ViewController.swift,
-			);
-			target = 2B6A5B47300A2D06002FB591 /* chzzk-plus (iOS) */;
-		};
-		2B6A5B97300A2D06002FB591 /* Exceptions for "iOS (Extension)" folder in "chzzk-plus Extension (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 2B6A5B64300A2D06002FB591 /* chzzk-plus Extension (iOS) */;
-		};
-		2B6A5B9C300A2D06002FB591 /* Exceptions for "iOS (App)" folder in "chzzk-plus (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 2B6A5B47300A2D06002FB591 /* chzzk-plus (iOS) */;
-		};
 		2B6A5B9D300A2D06002FB591 /* Exceptions for "Shared (App)" folder in "chzzk-plus (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
+				AppIcon.icon,
 				Assets.xcassets,
 				Resources/Icon.png,
 				Resources/Script.js,
@@ -106,29 +60,18 @@
 			);
 			target = 2B6A5B6E300A2D06002FB591 /* chzzk-plus Extension (macOS) */;
 		};
-		2B6A5BA6300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (iOS)" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/_locales,
-				Resources/background.js,
-				Resources/content.js,
-				Resources/images,
-				Resources/manifest.json,
-				Resources/popup.css,
-				Resources/popup.html,
-				Resources/popup.js,
-				SafariWebExtensionHandler.swift,
-			);
-			target = 2B6A5B64300A2D06002FB591 /* chzzk-plus Extension (iOS) */;
-		};
 		2B6A5BA7300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/_locales,
 				Resources/background.js,
+				Resources/content.css,
 				Resources/content.js,
+				Resources/core,
 				Resources/images,
 				Resources/manifest.json,
+				Resources/modules,
+				Resources/page,
 				Resources/popup.css,
 				Resources/popup.html,
 				Resources/popup.js,
@@ -142,7 +85,6 @@
 		2B6A5B30300A2D04002FB591 /* Shared (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				2B6A5B93300A2D06002FB591 /* Exceptions for "Shared (App)" folder in "chzzk-plus (iOS)" target */,
 				2B6A5B9D300A2D06002FB591 /* Exceptions for "Shared (App)" folder in "chzzk-plus (macOS)" target */,
 			);
 			path = "Shared (App)";
@@ -151,35 +93,21 @@
 		2B6A5B39300A2D06002FB591 /* Shared (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				2B6A5BA6300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (iOS)" target */,
 				2B6A5BA7300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (macOS)" target */,
 			);
 			explicitFolders = (
 				Resources/_locales,
+				Resources/core,
 				Resources/images,
+				Resources/modules,
+				Resources/page,
 			);
 			path = "Shared (Extension)";
-			sourceTree = "<group>";
-		};
-		2B6A5B4A300A2D06002FB591 /* iOS (App) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2B6A5B9C300A2D06002FB591 /* Exceptions for "iOS (App)" folder in "chzzk-plus (iOS)" target */,
-			);
-			path = "iOS (App)";
 			sourceTree = "<group>";
 		};
 		2B6A5B5B300A2D06002FB591 /* macOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "macOS (App)";
-			sourceTree = "<group>";
-		};
-		2B6A5B69300A2D06002FB591 /* iOS (Extension) */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2B6A5B97300A2D06002FB591 /* Exceptions for "iOS (Extension)" folder in "chzzk-plus Extension (iOS)" target */,
-			);
-			path = "iOS (Extension)";
 			sourceTree = "<group>";
 		};
 		2B6A5B73300A2D06002FB591 /* macOS (Extension) */ = {
@@ -193,21 +121,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2B6A5B45300A2D06002FB591 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2B6A5B57300A2D06002FB591 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2B6A5B62300A2D06002FB591 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -229,9 +143,7 @@
 			children = (
 				2B6A5B30300A2D04002FB591 /* Shared (App) */,
 				2B6A5B39300A2D06002FB591 /* Shared (Extension) */,
-				2B6A5B4A300A2D06002FB591 /* iOS (App) */,
 				2B6A5B5B300A2D06002FB591 /* macOS (App) */,
-				2B6A5B69300A2D06002FB591 /* iOS (Extension) */,
 				2B6A5B73300A2D06002FB591 /* macOS (Extension) */,
 				2B6A5B49300A2D06002FB591 /* Products */,
 			);
@@ -240,9 +152,7 @@
 		2B6A5B49300A2D06002FB591 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B6A5B48300A2D06002FB591 /* chzzk-plus.app */,
 				2B6A5B5A300A2D06002FB591 /* chzzk-plus.app */,
-				2B6A5B65300A2D06002FB591 /* chzzk-plus Extension.appex */,
 				2B6A5B6F300A2D06002FB591 /* chzzk-plus Extension.appex */,
 			);
 			name = Products;
@@ -251,30 +161,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2B6A5B47300A2D06002FB591 /* chzzk-plus (iOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2B6A5B99300A2D06002FB591 /* Build configuration list for PBXNativeTarget "chzzk-plus (iOS)" */;
-			buildPhases = (
-				2B6A5B44300A2D06002FB591 /* Sources */,
-				2B6A5B45300A2D06002FB591 /* Frameworks */,
-				2B6A5B46300A2D06002FB591 /* Resources */,
-				2B6A5B98300A2D06002FB591 /* Embed Foundation Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2B6A5B68300A2D06002FB591 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				2B6A5B4A300A2D06002FB591 /* iOS (App) */,
-			);
-			name = "chzzk-plus (iOS)";
-			packageProductDependencies = (
-			);
-			productName = "chzzk-plus (iOS)";
-			productReference = 2B6A5B48300A2D06002FB591 /* chzzk-plus.app */;
-			productType = "com.apple.product-type.application";
-		};
 		2B6A5B59300A2D06002FB591 /* chzzk-plus (macOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B6A5BA3300A2D06002FB591 /* Build configuration list for PBXNativeTarget "chzzk-plus (macOS)" */;
@@ -298,28 +184,6 @@
 			productName = "chzzk-plus (macOS)";
 			productReference = 2B6A5B5A300A2D06002FB591 /* chzzk-plus.app */;
 			productType = "com.apple.product-type.application";
-		};
-		2B6A5B64300A2D06002FB591 /* chzzk-plus Extension (iOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2B6A5B94300A2D06002FB591 /* Build configuration list for PBXNativeTarget "chzzk-plus Extension (iOS)" */;
-			buildPhases = (
-				2B6A5B61300A2D06002FB591 /* Sources */,
-				2B6A5B62300A2D06002FB591 /* Frameworks */,
-				2B6A5B63300A2D06002FB591 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				2B6A5B69300A2D06002FB591 /* iOS (Extension) */,
-			);
-			name = "chzzk-plus Extension (iOS)";
-			packageProductDependencies = (
-			);
-			productName = "chzzk-plus Extension (iOS)";
-			productReference = 2B6A5B65300A2D06002FB591 /* chzzk-plus Extension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		2B6A5B6E300A2D06002FB591 /* chzzk-plus Extension (macOS) */ = {
 			isa = PBXNativeTarget;
@@ -353,13 +217,7 @@
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					2B6A5B47300A2D06002FB591 = {
-						CreatedOnToolsVersion = 26.6;
-					};
 					2B6A5B59300A2D06002FB591 = {
-						CreatedOnToolsVersion = 26.6;
-					};
-					2B6A5B64300A2D06002FB591 = {
 						CreatedOnToolsVersion = 26.6;
 					};
 					2B6A5B6E300A2D06002FB591 = {
@@ -381,30 +239,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2B6A5B47300A2D06002FB591 /* chzzk-plus (iOS) */,
 				2B6A5B59300A2D06002FB591 /* chzzk-plus (macOS) */,
-				2B6A5B64300A2D06002FB591 /* chzzk-plus Extension (iOS) */,
 				2B6A5B6E300A2D06002FB591 /* chzzk-plus Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2B6A5B46300A2D06002FB591 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2B6A5B58300A2D06002FB591 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2B6A5B63300A2D06002FB591 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -421,21 +263,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2B6A5B44300A2D06002FB591 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2B6A5B56300A2D06002FB591 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2B6A5B61300A2D06002FB591 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -452,11 +280,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2B6A5B68300A2D06002FB591 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2B6A5B64300A2D06002FB591 /* chzzk-plus Extension (iOS) */;
-			targetProxy = 2B6A5B67300A2D06002FB591 /* PBXContainerItemProxy */;
-		};
 		2B6A5B72300A2D06002FB591 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2B6A5B6E300A2D06002FB591 /* chzzk-plus Extension (macOS) */;
@@ -465,158 +288,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2B6A5B95300A2D06002FB591 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S6HG6QF28M;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "chzzk-plus Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.h9b3.chzzk-plus.Extension";
-				PRODUCT_NAME = "chzzk-plus Extension";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		2B6A5B96300A2D06002FB591 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S6HG6QF28M;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "chzzk-plus Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.h9b3.chzzk-plus.Extension";
-				PRODUCT_NAME = "chzzk-plus Extension";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		2B6A5B9A300A2D06002FB591 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S6HG6QF28M;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "chzzk-plus";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.h9b3.chzzk-plus";
-				PRODUCT_NAME = "chzzk-plus";
-				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		2B6A5B9B300A2D06002FB591 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S6HG6QF28M;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "chzzk-plus";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.h9b3.chzzk-plus";
-				PRODUCT_NAME = "chzzk-plus";
-				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		2B6A5B9F300A2D06002FB591 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -895,24 +566,6 @@
 			buildConfigurations = (
 				2B6A5BA8300A2D06002FB591 /* Debug */,
 				2B6A5BA9300A2D06002FB591 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2B6A5B94300A2D06002FB591 /* Build configuration list for PBXNativeTarget "chzzk-plus Extension (iOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2B6A5B95300A2D06002FB591 /* Debug */,
-				2B6A5B96300A2D06002FB591 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2B6A5B99300A2D06002FB591 /* Build configuration list for PBXNativeTarget "chzzk-plus (iOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2B6A5B9A300A2D06002FB591 /* Debug */,
-				2B6A5B9B300A2D06002FB591 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
