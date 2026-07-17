@@ -1,11 +1,36 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="popup.css">
-    <script type="module" src="popup.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHZZK Plus</title>
+  <link rel="stylesheet" href="popup.css">
+  <script type="module" src="popup.js"></script>
 </head>
 <body>
-    <strong>Hello World!</strong>
+  <header>
+    <div class="brand"><i></i><strong>CHZZK+</strong></div>
+    <input id="enabled" class="toggle master" type="checkbox" aria-label="CHZZK Plus 사용">
+  </header>
+
+  <main>
+    <div class="player-status" aria-label="현재 플레이어 상태">
+      <div><span>화질</span><b id="current-quality">—</b></div>
+      <div><span>레이턴시</span><b id="current-latency">—</b></div>
+      <div><span>상태</span><b id="player-state">대기</b></div>
+    </div>
+
+    <div class="settings-list">
+      <label class="menu-row quality-row"><span>선호 화질</span><select data-setting="preferredQuality"><option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option><option value="360">360p</option></select></label>
+      <label class="menu-row"><span>재생바</span><input class="toggle" data-setting="playbackBarEnabled" type="checkbox"></label>
+      <label class="menu-row"><span>선명한 화면</span><input class="toggle" data-setting="sharpnessEnabled" type="checkbox"></label>
+      <label class="menu-row"><span>스트림 통계</span><input class="toggle" data-composite="streamStats" type="checkbox"></label>
+      <label class="menu-row"><span>광고 차단</span><input class="toggle" data-composite="adBlock" type="checkbox"></label>
+      <label class="menu-row"><span>순위 채팅 숨김</span><input class="toggle" data-setting="rankingHideEnabled" type="checkbox"></label>
+      <label class="menu-row"><span>블라인드 채팅 보이기</span><input class="toggle" data-composite="blindedChat" type="checkbox"></label>
+    </div>
+  </main>
+
+  <footer id="diagnostic" role="status"><i></i><span>연결 확인 중</span></footer>
 </body>
 </html>

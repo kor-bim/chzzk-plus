@@ -1,15 +1,33 @@
-:root {
-    color-scheme: light dark;
-}
-
-body {
-    width: 100px;
-    padding: 10px;
-
-    font-family: system-ui;
-    text-align: center;
-}
-
-@media (prefers-color-scheme: dark) {
-    /* Dark Mode styles go here. */
-}
+:root { color-scheme: dark; font: 13px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; }
+* { box-sizing: border-box; }
+body { width: 340px; margin: 0; color: #f6f8f7; background: #000; }
+header { display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 0 16px; border-bottom: 1px solid #1c211f; }
+.brand { display: flex; align-items: center; gap: 9px; letter-spacing: -.3px; }
+.brand i { width: 10px; height: 10px; border-radius: 3px; background: #00ffa3; box-shadow: 0 0 16px rgba(0,255,163,.65); transform: rotate(45deg); }
+.brand strong { font-size: 15px; }
+main { padding: 12px; }
+.player-status { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; margin-bottom: 10px; border: 1px solid #202724; border-radius: 12px; background: #202724; }
+.player-status div { min-width: 0; padding: 11px 8px 10px; background: #101412; text-align: center; }
+.player-status span { display: block; margin-bottom: 4px; color: #66716b; font-size: 9px; }
+.player-status b { display: block; overflow: hidden; color: #e9efec; font-size: 12px; font-variant-numeric: tabular-nums; text-overflow: ellipsis; white-space: nowrap; }
+.settings-list { overflow: hidden; border: 1px solid #202724; border-radius: 12px; background: #111513; }
+.menu-row { display: flex; align-items: center; justify-content: space-between; min-height: 45px; padding: 0 13px; border-bottom: 1px solid #1d2420; cursor: default; }
+.menu-row:last-child { border-bottom: 0; }
+.menu-row > span { color: #dce2df; font-weight: 550; letter-spacing: -.15px; }
+.quality-row select { min-width: 86px; padding: 5px 24px 5px 9px; border: 1px solid #303a35; border-radius: 7px; color: #00ffa3; background: #181e1b; font: 600 11px/1.2 -apple-system, BlinkMacSystemFont, sans-serif; outline: none; }
+.toggle { position: relative; width: 35px; height: 20px; margin: 0; border: 0; border-radius: 99px; background: #343b37; appearance: none; -webkit-appearance: none; cursor: pointer; transition: background .16s ease; }
+.toggle::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px #0008; transition: transform .16s ease; }
+.toggle:checked { background: #00ffa3; }
+.toggle:checked::after { transform: translateX(15px); }
+.toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.toggle.master { width: 39px; height: 22px; }
+.toggle.master::after { width: 18px; height: 18px; }
+.toggle.master:checked::after { transform: translateX(17px); }
+footer { display: flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 15px 10px; overflow: hidden; color: #68736d; font-size: 9px; white-space: nowrap; }
+footer i { flex: 0 0 auto; width: 6px; height: 6px; border-radius: 50%; background: #78817c; }
+footer span { overflow: hidden; text-overflow: ellipsis; }
+footer.ok i { background: #00ffa3; box-shadow: 0 0 8px rgba(0,255,163,.6); }
+footer.error { color: #ff7185; }
+footer.error i { background: #ff4d67; box-shadow: 0 0 8px rgba(255,77,103,.5); }
+footer.offline i { background: #d8a34c; }
+body.disabled .settings-list { opacity: .38; pointer-events: none; }
