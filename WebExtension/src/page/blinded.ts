@@ -41,7 +41,13 @@
       '[class*="chatting_message_item"]',
       '[class*="live_chatting_list_item"]',
       '[class*="chatting_list_item"]',
-      '[class*="_item_sg7hy_"]',
+      '[class*="_item_"]'
+    ].join(",");
+
+    /** 채팅만 감시하도록 실제 메시지 목록 영역을 찾습니다. */
+    private readonly listSelector = [
+      '[class*="live_chatting_list_container"]',
+      '[class*="_container_sg7hy_"]',
       'div[role="log"] > div'
     ].join(",");
 
@@ -61,10 +67,19 @@
     ].join(",");
 
     private readonly cache = new Map<string, string>();
-    private readonly maxCacheEntries = 1000;
+    private readonly maxCacheEntries = 2000;
     private readonly pendingItems = new Set<HTMLElement>();
     private scanScheduled = false;
-    private observing = false;
+    private activeContainer: HTMLElement | null = null;
+    private mountTimer: number | undefined;
+
+    /** 감시기가 놓친 경우에도 가림막 위로 마우스가 오면 해당 채팅을 다시 준비합니다. */
+    private readonly onMouseOver = (event: MouseEvent): void => {
+      if (!isEnabled() || !(event.target instanceof HTMLElement)) return;
+      const blinded = event.target.closest<HTMLElement>(this.blindedSelector);
+      if (!blinded) return;
+      this.processItem(blinded.closest<HTMLElement>(this.itemSelector) || blinded);
+    };
 
     private readonly observer = new MutationObserver((records) => {
       if (!isEnabled()) return;
@@ -75,6 +90,27 @@
       }
       this.scheduleScan();
     });
+
+    /** 방송 전환 뒤 채팅 목록이 교체되면 새 목록으로 감시 대상을 옮깁니다. */
+    private attachToChatList(): void {
+      if (!isEnabled()) return;
+      const container = document.querySelector<HTMLElement>(this.listSelector);
+      if (!container) {
+        this.observer.disconnect();
+        this.activeContainer = null;
+        return;
+      }
+      if (container === this.activeContainer) return;
+      this.observer.disconnect();
+      this.activeContainer = container;
+      this.observer.observe(container, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class"]
+      });
+      this.scheduleScan(true);
+    }
 
     /** 배열 형태의 글자와 이모티콘도 한 줄 문자열로 바꿉니다. */
     private normalizeContent(content: unknown): string {
@@ -101,6 +137,13 @@
     private findChatMessage(value: any, depth = 0, visited = new WeakSet<object>()): ChatMessage | null {
       if (!value || typeof value !== "object" || depth > 5 || visited.has(value)) return null;
       visited.add(value);
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          const found = this.findChatMessage(item, depth + 1, visited);
+          if (found) return found;
+        }
+        return null;
+      }
       if (value.chatMessage?.key || value.chatMessage?.content || value.chatMessage?.originalContent) {
         return value.chatMessage;
       }
@@ -116,7 +159,7 @@
     private getReactMessage(element: HTMLElement): ChatMessage | null {
       let cursor: ReactCarrier | null = element as ReactCarrier;
       for (let parentDepth = 0; cursor && parentDepth < 5; parentDepth += 1, cursor = cursor.parentElement as ReactCarrier | null) {
-        for (const key of Object.keys(cursor)) {
+        for (const key of Object.getOwnPropertyNames(cursor)) {
           if (key.startsWith("__reactProps$")) {
             const direct = this.findChatMessage(cursor[key]);
             if (direct) return direct;
@@ -140,7 +183,7 @@
     private getDirectReactMessage(element: HTMLElement): ChatMessage | null {
       let cursor: ReactCarrier | null = element as ReactCarrier;
       for (let depth = 0; cursor && depth < 5; depth += 1, cursor = cursor.parentElement as ReactCarrier | null) {
-        for (const key of Object.keys(cursor)) {
+        for (const key of Object.getOwnPropertyNames(cursor)) {
           if (!key.startsWith("__reactProps$") && !key.startsWith("__reactEvents$")) continue;
           const props = cursor[key];
           const direct = props?.chatMessage || props?.children?.props?.chatMessage;
@@ -155,7 +198,7 @@
       if (message?.key || message?.messageId) return String(message.key || message.messageId);
       let cursor: ReactCarrier | null = element as ReactCarrier;
       for (let parentDepth = 0; cursor && parentDepth < 5; parentDepth += 1, cursor = cursor.parentElement as ReactCarrier | null) {
-        for (const key of Object.keys(cursor)) {
+        for (const key of Object.getOwnPropertyNames(cursor)) {
           if (!key.startsWith("__reactFiber$") && !key.startsWith("__reactInternalInstance$")) continue;
           let fiber = cursor[key];
           for (let level = 0; fiber && level < 16; level += 1, fiber = fiber.return) {
@@ -165,6 +208,52 @@
         }
       }
       return element.dataset.messageId || null;
+    }
+
+    /** 메시지 번호가 같은 원문을 치지직 채팅 목록의 내부 보관 배열에서 찾습니다. */
+    private findMessageByKey(value: any, expectedKey: string, depth = 0, visited = new WeakSet<object>()): ChatMessage | null {
+      if (!value || typeof value !== "object" || depth > 5 || visited.has(value)) return null;
+      visited.add(value);
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          const found = this.findMessageByKey(item, expectedKey, depth + 1, visited);
+          if (found) return found;
+        }
+        return null;
+      }
+      const candidate = value.chatMessage || value;
+      const candidateKey = candidate?.key || candidate?.messageId;
+      if (String(candidateKey || "") === expectedKey && (candidate.originalContent || candidate.content)) {
+        return candidate;
+      }
+      for (const key of ["props", "children", "data", "message", "item", "memoizedState", "baseState"]) {
+        const found = this.findMessageByKey(value[key], expectedKey, depth + 1, visited);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    /**
+     * 화면 요소의 데이터가 이미 가림 문구로 바뀐 경우, 상위 채팅 목록이 보관 중인
+     * 최근 메시지 배열을 확인합니다. 가려진 메시지에만 실행하므로 평소 채팅 성능에는
+     * 영향을 거의 주지 않습니다.
+     */
+    private getMessageFromChatList(element: HTMLElement, expectedKey: string): ChatMessage | null {
+      let cursor: ReactCarrier | null = element as ReactCarrier;
+      for (let parentDepth = 0; cursor && parentDepth < 6; parentDepth += 1, cursor = cursor.parentElement as ReactCarrier | null) {
+        for (const property of Object.getOwnPropertyNames(cursor)) {
+          if (!property.startsWith("__reactFiber$") && !property.startsWith("__reactInternalInstance$")) continue;
+          let fiber = cursor[property];
+          for (let level = 0; fiber && level < 24; level += 1, fiber = fiber.return) {
+            let hook = fiber.memoizedState;
+            for (let hookIndex = 0; hook && hookIndex < 24; hookIndex += 1, hook = hook.next) {
+              const found = this.findMessageByKey(hook.memoizedState, expectedKey);
+              if (found) return found;
+            }
+          }
+        }
+      }
+      return null;
     }
 
     /** 오래된 항목부터 지워 메모리가 계속 늘어나지 않게 원문을 보관합니다. */
@@ -190,20 +279,59 @@
       textElement.classList.remove("chzzk-plus-blinded-restored");
     }
 
+    /** 현재 시점의 화면 데이터와 채팅 목록에서 원문을 다시 찾습니다. */
+    private resolveOriginal(item: HTMLElement): string {
+      let message = this.getDirectReactMessage(item) || this.getReactMessage(item);
+      const key = this.findMessageKey(item, message);
+      let original = this.normalizeContent(message?.originalContent ?? message?.content);
+      if ((!original || this.isBlindedText(original)) && key) {
+        message = this.getMessageFromChatList(item, key) || message;
+        original = this.normalizeContent(message?.originalContent ?? message?.content);
+      }
+      if ((!original || this.isBlindedText(original)) && key) original = this.cache.get(key) || "";
+      if (key && original && !this.isBlindedText(original)) this.remember(key, original);
+      return this.isBlindedText(original) ? "" : original;
+    }
+
     /** 원문을 찾은 글자 요소에 한 번만 마우스 동작을 연결합니다. */
-    private prepare(textElement: HTMLElement, original: string): void {
-      textElement.dataset.chzzkPlusOriginal = original;
+    private prepare(textElement: HTMLElement, item: HTMLElement, hoverTarget: HTMLElement, initialOriginal = ""): void {
+      if (initialOriginal) textElement.dataset.chzzkPlusOriginal = initialOriginal;
       if (textElement.dataset.chzzkPlusBlinded !== "ready") {
         textElement.dataset.chzzkPlusBlinded = "ready";
         textElement.dataset.chzzkPlusPlaceholder = textElement.textContent || "";
         textElement.classList.add("chzzk-plus-blinded");
-        textElement.addEventListener("mouseenter", () => this.restore(textElement));
-        textElement.addEventListener("mouseleave", () => {
+        hoverTarget.classList.add("chzzk-plus-blinded");
+        hoverTarget.addEventListener("mouseenter", () => {
+          const original = this.resolveOriginal(item);
+          if (original) {
+            textElement.dataset.chzzkPlusOriginal = original;
+            textElement.removeAttribute("title");
+            this.restore(textElement);
+          } else {
+            textElement.title = "치지직이 브라우저에 원문을 보내지 않아 표시할 수 없습니다.";
+          }
+        });
+        hoverTarget.addEventListener("mouseleave", () => {
           if (!settings.blindedAutoRestoreEnabled) this.conceal(textElement);
         });
       }
-      if (settings.blindedAutoRestoreEnabled) this.restore(textElement);
+      if (settings.blindedAutoRestoreEnabled && textElement.dataset.chzzkPlusOriginal) this.restore(textElement);
       else this.conceal(textElement);
+
+      // Safari에서는 화면이 먼저 생기고 메시지 데이터가 조금 늦게 연결될 수 있습니다.
+      if (!textElement.dataset.chzzkPlusOriginal && textElement.dataset.chzzkPlusRetry !== "scheduled") {
+        textElement.dataset.chzzkPlusRetry = "scheduled";
+        for (const delay of [50, 250, 1000]) {
+          setTimeout(() => {
+            if (!textElement.isConnected || !isEnabled() || textElement.dataset.chzzkPlusOriginal) return;
+            const original = this.resolveOriginal(item);
+            if (!original) return;
+            textElement.dataset.chzzkPlusOriginal = original;
+            textElement.removeAttribute("title");
+            if (settings.blindedAutoRestoreEnabled) this.restore(textElement);
+          }, delay);
+        }
+      }
     }
 
     /** 일반 채팅은 원문을 기억하고, 가려진 채팅은 같은 번호의 원문을 찾아 연결합니다. */
@@ -232,8 +360,7 @@
         const original = directOriginal && !this.isBlindedText(directOriginal)
           ? directOriginal
           : key ? this.cache.get(key) || "" : "";
-        if (original) this.prepare(textElement, original);
-        else textElement.title = "브라우저에 전달된 원문을 찾을 수 없습니다.";
+        this.prepare(textElement, item, target, original);
       }
     }
 
@@ -253,7 +380,7 @@
     /** 여러 채팅 변화가 한꺼번에 와도 다음 화면 그리기 전에 한 번만 처리합니다. */
     private scheduleScan(full = false): void {
       if (!isEnabled() || this.scanScheduled) return;
-      if (full) document.querySelectorAll<HTMLElement>(this.itemSelector).forEach((item) => this.pendingItems.add(item));
+      if (full) this.activeContainer?.querySelectorAll<HTMLElement>(this.itemSelector).forEach((item) => this.pendingItems.add(item));
       this.scanScheduled = true;
       requestAnimationFrame(() => {
         this.scanScheduled = false;
@@ -269,19 +396,18 @@
       if (!isEnabled()) {
         prepared.forEach((element) => this.conceal(element));
         this.observer.disconnect();
-        this.observing = false;
+        this.activeContainer = null;
+        if (this.mountTimer != null) clearInterval(this.mountTimer);
+        this.mountTimer = undefined;
+        document.removeEventListener("mouseover", this.onMouseOver, true);
         this.pendingItems.clear();
         return;
       }
-      if (!this.observing) {
-        this.observer.observe(document.documentElement, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ["class"]
-        });
-        this.observing = true;
+      if (this.mountTimer == null) {
+        this.mountTimer = window.setInterval(() => this.attachToChatList(), 1500);
+        document.addEventListener("mouseover", this.onMouseOver, { capture: true, passive: true });
       }
+      this.attachToChatList();
       prepared.forEach((element) => {
         if (settings.blindedAutoRestoreEnabled) this.restore(element);
         else this.conceal(element);

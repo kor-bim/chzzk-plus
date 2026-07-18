@@ -6,6 +6,7 @@ const DEFAULT_INTENSITY = 1.8;
 
 interface SharpnessControls {
   item: HTMLElement;
+  toggleWrapper: HTMLElement;
   toggle: HTMLInputElement;
   range: HTMLInputElement;
   value: HTMLOutputElement;
@@ -66,10 +67,11 @@ export class Sharpness {
         this.controls = null;
         return;
       }
-      const { item, toggle, range, value } = this.controls;
+      const { item, toggleWrapper, toggle, range, value } = this.controls;
       const enabled = Boolean(CP.settings.sharpnessEnabled);
       const intensity = this.normalizeIntensity(CP.settings.sharpnessIntensity);
       toggle.checked = enabled;
+      toggleWrapper.setAttribute("aria-checked", String(enabled));
       range.disabled = !enabled;
       range.value = String(intensity);
       range.style.setProperty("--sharpness-progress", `${((intensity - MIN_INTENSITY) / (MAX_INTENSITY - MIN_INTENSITY)) * 100}%`);
@@ -116,28 +118,44 @@ export class Sharpness {
           <div class="pzp-ui-setting-home-item__left">
             <span class="pzp-ui-setting-home-item__label">화면 선명도</span>
           </div>
-          <div class="pzp-ui-setting-home-item__right">
-            <label class="cqc-sharp-toggle" aria-label="화면 선명도 켜기">
-              <input type="checkbox">
-              <span aria-hidden="true"></span>
-            </label>
-          </div>
+          <div class="pzp-ui-setting-home-item__right"></div>
         </div>
         <div class="cqc-sharp-gauge">
           <input type="range" min="${MIN_INTENSITY}" max="${MAX_INTENSITY}" step="0.1" aria-label="선명도 강도">
           <output>1.8</output>
         </div>`;
 
+      // 치지직의 바로 위 설정이 사용하는 스위치와 같은 HTML 구조·CSS 클래스를 씁니다.
+      // 별도 모양을 그리지 않으므로 치지직이 토글 디자인을 바꿔도 함께 바뀝니다.
+      const toggleWrapper = document.createElement("div");
+      toggleWrapper.className = "pzp-ui-toggle cqc-sharp-toggle";
+      toggleWrapper.setAttribute("role", "switch");
+      toggleWrapper.setAttribute("aria-label", "화면 선명도 켜기");
+      toggleWrapper.tabIndex = 0;
+      toggleWrapper.innerHTML = `
+        <input type="checkbox" class="pzp-ui-toggle__checkbox" tabindex="-1">
+        <div class="pzp-ui-toggle__handle"></div>`;
+      item.querySelector(".pzp-ui-setting-home-item__right")?.appendChild(toggleWrapper);
+
       ["click", "mousedown", "mouseup", "pointerdown", "pointerup", "contextmenu"].forEach((type) => {
         item.addEventListener(type, (event) => event.stopPropagation());
       });
 
-      const toggle = item.querySelector<HTMLInputElement>('.cqc-sharp-toggle input');
+      const toggle = toggleWrapper.querySelector<HTMLInputElement>('.pzp-ui-toggle__checkbox');
       const range = item.querySelector<HTMLInputElement>('.cqc-sharp-gauge input');
       const value = item.querySelector<HTMLOutputElement>('.cqc-sharp-gauge output');
       if (!toggle || !range || !value) return;
-      toggle.addEventListener("change", () => {
-        void CP.patchSettings({ sharpnessEnabled: toggle.checked });
+      const changeToggle = (): void => {
+        const enabled = !toggle.checked;
+        toggle.checked = enabled;
+        toggleWrapper.setAttribute("aria-checked", String(enabled));
+        void CP.patchSettings({ sharpnessEnabled: enabled });
+      };
+      toggleWrapper.addEventListener("click", changeToggle);
+      toggleWrapper.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        changeToggle();
       });
       range.addEventListener("input", () => {
         const intensity = this.normalizeIntensity(range.value);
@@ -151,7 +169,7 @@ export class Sharpness {
 
       if (nativeItem) nativeItem.insertAdjacentElement("afterend", item);
       else menu.appendChild(item);
-      this.controls = { item, toggle, range, value };
+      this.controls = { item, toggleWrapper, toggle, range, value };
       this.refresh();
     }
     /** 기능을 끌 때 메뉴, 대기 중인 미리보기와 영상 필터를 모두 제거합니다. */
