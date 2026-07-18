@@ -6,6 +6,8 @@ xcuserdata/
 DerivedData/
 build/
 *.xcarchive
+WebExtension/node_modules/
+WebExtension/dist/
 
 # macOS metadata
 .DS_Store

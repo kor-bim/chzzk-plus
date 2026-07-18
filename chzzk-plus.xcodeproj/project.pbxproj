@@ -63,18 +63,6 @@
 		2B6A5BA7300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/_locales,
-				Resources/background.js,
-				Resources/content.css,
-				Resources/content.js,
-				Resources/core,
-				Resources/images,
-				Resources/manifest.json,
-				Resources/modules,
-				Resources/page,
-				Resources/popup.css,
-				Resources/popup.html,
-				Resources/popup.js,
 				SafariWebExtensionHandler.swift,
 			);
 			target = 2B6A5B6E300A2D06002FB591 /* chzzk-plus Extension (macOS) */;
@@ -94,13 +82,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				2B6A5BA7300A2D06002FB591 /* Exceptions for "Shared (Extension)" folder in "chzzk-plus Extension (macOS)" target */,
-			);
-			explicitFolders = (
-				Resources/_locales,
-				Resources/core,
-				Resources/images,
-				Resources/modules,
-				Resources/page,
 			);
 			path = "Shared (Extension)";
 			sourceTree = "<group>";
@@ -192,6 +173,7 @@
 				2B6A5B6B300A2D06002FB591 /* Sources */,
 				2B6A5B6C300A2D06002FB591 /* Frameworks */,
 				2B6A5B6D300A2D06002FB591 /* Resources */,
+				2B6A5BAA300A2D06002FB591 /* Bundle Web Extension */,
 			);
 			buildRules = (
 			);
@@ -262,6 +244,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2B6A5BAA300A2D06002FB591 /* Bundle Web Extension */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/WebExtension",
+			);
+			name = "Bundle Web Extension";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$SRCROOT/WebExtension/scripts/xcode-build.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2B6A5B56300A2D06002FB591 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -296,6 +302,7 @@
 				DEVELOPMENT_TEAM = S6HG6QF28M;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -332,6 +339,7 @@
 				DEVELOPMENT_TEAM = S6HG6QF28M;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";

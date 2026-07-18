@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHZZK Plus</title>
+  <link rel="stylesheet" href="styles/popup.css">
+  <script type="module" src="popup.js"></script>
+</head>
+<body>
+  <div class="popup">
+    <header class="top">
+      <img class="app-icon" src="images/icon-48.png" alt="">
+      <div class="top-text">
+        <div class="title-row">
+          <strong>CHZZK Plus</strong>
+          <div id="diagnostic" class="pill offline" role="status"><i></i><span>연결 중</span></div>
+        </div>
+        <div id="site-host" class="subtitle">치지직 플레이어 도우미</div>
+      </div>
+    </header>
+
+    <section class="player-status" aria-label="현재 플레이어 상태">
+      <div><span>화질</span><b id="current-quality">—</b></div>
+      <div><span>방송 지연</span><b id="current-latency">—</b></div>
+      <div><span>재생 상태</span><b id="player-state">대기</b></div>
+    </section>
+
+    <section class="settings-section" aria-label="CHZZK Plus 설정">
+      <label class="menu-row master-row">
+        <span>확장 기능</span>
+        <span class="switch"><input id="enabled" type="checkbox" aria-label="CHZZK Plus 사용"><span class="slider" aria-hidden="true"></span></span>
+      </label>
+      <label class="menu-row quality-row">
+        <span>선호 화질</span>
+        <select data-setting="preferredQuality" aria-label="선호 화질"><option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option><option value="360">360p</option></select>
+      </label>
+      <label class="menu-row"><span>재생바</span><span class="switch"><input data-setting="playbackBarEnabled" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+      <label class="menu-row"><span>화면 선명도</span><span class="switch"><input data-setting="sharpnessEnabled" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+      <label class="menu-row"><span>스트림 통계</span><span class="switch"><input data-composite="streamStats" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+      <label class="menu-row"><span>광고 차단</span><span class="switch"><input data-composite="adBlock" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+      <label class="menu-row"><span>순위 채팅 숨김</span><span class="switch"><input data-setting="rankingHideEnabled" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+      <label class="menu-row"><span>블라인드 채팅 보이기</span><span class="switch"><input data-composite="blindedChat" type="checkbox"><span class="slider" aria-hidden="true"></span></span></label>
+    </section>
+  </div>
+</body>
+</html>
