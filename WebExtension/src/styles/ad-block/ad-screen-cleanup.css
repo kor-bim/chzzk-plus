@@ -1,0 +1,2 @@
+html.chzzk-plus-hide-ads img[src*="nng-phinf.pstatic.net"][src*="/Banner_"],
+html.chzzk-plus-hide-ads img[src*="veta.naver.com"] { display: none !important; }

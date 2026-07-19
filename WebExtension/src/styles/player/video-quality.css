@@ -1,0 +1,2 @@
+/* 선호 화질이 적용된 플레이어는 Safari의 기본 영상 보간을 그대로 사용합니다. */
+html[data-chzzk-plus-quality="fixed"] video.webplayer-internal-video { image-rendering: auto; }

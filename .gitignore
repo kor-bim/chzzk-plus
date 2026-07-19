@@ -2,6 +2,10 @@
 xcuserdata/
 *.xcuserstate
 
+# IDE user-specific settings
+.idea/
+*.iml
+
 # Build artifacts
 DerivedData/
 build/

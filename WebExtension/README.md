@@ -37,22 +37,26 @@ popup.js (툴바 팝업)
 ```text
 WebExtension/
 ├─ src/
-│  ├─ background/   Safari 백그라운드 진입점과 권한 API
-│  ├─ content/      기능 시작·종료, 공유 상태, 화면 변경 감시
-│  ├─ core/         모든 환경에서 공유하는 설정·메시지·기능 계약
-│  ├─ features/     콘텐츠 환경에서 동작하는 독립 기능
-│  ├─ page/         치지직 사이트 내부 정보가 필요한 기능
-│  └─ popup/        툴바 팝업 로직
-├─ public/          manifest, HTML, CSS, 아이콘 등 그대로 복사할 파일
+│  ├─ entrypoints/  Safari가 직접 실행하는 네 개 번들의 시작 파일
+│  ├─ shared/       설정·메시지·기능 계약·사이트 전역 타입
+│  ├─ runtime/      확장 공용 상태와 화면 변화 감시
+│  ├─ features/
+│     ├─ player/    화질·선명도·스크린샷·스트림 통계
+│     ├─ live/      방송 카드 미리보기, 라이브 재생바와 탐색
+│     ├─ vod/       실제 방송 시각과 영상 이어보기
+│     ├─ chat/      순위 채팅과 블라인드 메시지
+│     └─ ad-block/  광고 요청·응답·화면 처리
+│  └─ styles/       player·live·vod·chat·ad-block별 CSS 원본
+├─ public/          manifest, HTML, 팝업 CSS, 아이콘 등 그대로 복사할 파일
 ├─ scripts/         esbuild 및 Xcode 연결 스크립트
 ├─ tests/           브라우저 없이 실행 가능한 단위 테스트
 └─ dist/            자동 생성되는 Safari 실행 파일; 직접 수정 금지
 ```
 
-기능 파일 수가 작고 하나의 책임만 가지므로 현재 `features/`는 평면 구조를
-사용합니다. 한 기능이 UI, 상태, 테스트 등 여러 파일로 커지면 그 기능만
-`features/<기능명>/` 하위 폴더로 분리합니다. 실행 환경이 다른 코드를 한 폴더에
-섞지 않는 것이 가장 중요한 규칙입니다.
+파일 하나로 충분한 기능은 분류 폴더 바로 아래에 둡니다. 같은 기능이 UI, 상태,
+저장소, 계산처럼 두 파일 이상으로 나뉘면 `features/<분류>/<기능명>/` 폴더로 반드시
+묶습니다. 기능 폴더의 `index.ts`는 외부 연결만 맡고 자세한 처리는 내부 파일에 둡니다.
+기능별 CSS도 같은 분류를 사용하며 esbuild가 `dist/styles/content.css` 하나로 묶습니다.
 
 ## 빌드 흐름
 
@@ -92,8 +96,8 @@ npm run build     # Release 번들만 dist에 생성
 
 ## 기능 추가 방법
 
-화면 요소를 조작하는 기능은 `src/features/<기능명>.ts`에 `FeatureModule` 규칙을 구현하고
-`src/content/index.ts`의 `FeatureRegistry`에 등록합니다.
+화면 요소를 조작하는 기능은 `src/features/<분류>/<기능명>`에 `FeatureModule` 규칙을
+구현하고 `src/entrypoints/chzzk-extension.ts`의 `FeatureRegistry`에 등록합니다.
 
 ```ts
 export class ExampleFeature {
@@ -113,13 +117,14 @@ export class ExampleFeature {
 }
 ```
 
-사이트의 네트워크 함수나 비공개 플레이어 객체가 필요한 기능은 `src/page/`에
-둡니다. page 기능은 확장 API를 직접 사용할 수 없으므로 설정과 결과를
+사이트의 네트워크 함수나 비공개 플레이어 객체가 필요한 코드는 해당 기능의
+`request-interceptor.ts`, `quality-controller.ts`처럼 책임이 드러나는 파일에 둡니다.
+이 코드는 확장 API를 직접 사용할 수 없으므로 설정과 결과를
 `window.postMessage`로 콘텐츠 환경에 전달해야 합니다.
 
 설정 항목을 추가할 때는 다음 세 곳을 함께 수정합니다.
 
-1. `src/core/settings.ts`의 `Settings`, `DEFAULT_SETTINGS`, 정규화 규칙
+1. `src/shared/settings.ts`의 `Settings`, `DEFAULT_SETTINGS`, 정규화 규칙
 2. `public/popup.html`의 입력 요소
 3. 필요한 기능의 `update()` 또는 page 설정 메시지 처리
 

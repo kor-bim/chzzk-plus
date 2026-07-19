@@ -40,10 +40,10 @@ await copyPublic();
 const buildContext = await context({
   absWorkingDir: projectRoot,
   entryPoints: {
-    background: "src/background/index.ts",
-    content: "src/content/index.ts",
-    page: "src/page/index.ts",
-    popup: "src/popup/index.ts"
+    background: "src/entrypoints/background.ts",
+    content: "src/entrypoints/chzzk-extension.ts",
+    page: "src/entrypoints/chzzk-website.ts",
+    popup: "src/entrypoints/popup.ts"
   },
   outdir,
   entryNames: "[name]",
@@ -60,8 +60,22 @@ const buildContext = await context({
   logLevel: "info"
 });
 
+// 개발할 때는 기능별 CSS 파일을 따로 관리하지만 Safari에는 manifest가 가리키는
+// 결과물은 styles/content.css 하나만 전달합니다. JavaScript와 같은 Debug/Release 규칙을 씁니다.
+const styleContext = await context({
+  absWorkingDir: projectRoot,
+  entryPoints: ["src/styles/base.css"],
+  outfile: path.join(outdir, "styles/content.css"),
+  bundle: true,
+  minify: !development,
+  sourcemap: development ? "inline" : false,
+  legalComments: "none",
+  logLevel: "info"
+});
+
 if (watch) {
   await buildContext.watch();
+  await styleContext.watch();
   const publicWatcher = watchFiles(publicDir, { recursive: true });
   for await (const event of publicWatcher) {
     await copyPublic();
@@ -69,5 +83,7 @@ if (watch) {
   }
 } else {
   await buildContext.rebuild();
+  await styleContext.rebuild();
   await buildContext.dispose();
+  await styleContext.dispose();
 }

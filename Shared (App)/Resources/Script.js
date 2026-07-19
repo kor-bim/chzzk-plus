@@ -1,6 +1,4 @@
-function show(platform, enabled, useSettingsInsteadOfPreferences) {
-    document.body.classList.add(`platform-${platform}`);
-
+function show(enabled, useSettingsInsteadOfPreferences) {
     if (useSettingsInsteadOfPreferences) {
         document.getElementsByClassName('platform-mac state-off')[0].innerText = "확장 프로그램이 꺼져 있습니다. Safari 설정에서 활성화해 주세요.";
         document.getElementsByClassName('platform-mac state-unknown')[0].innerText = "Safari 설정의 확장 프로그램에서 CHZZK Plus를 켜주세요.";

@@ -1,0 +1,26 @@
+#chzzk-plus-playback-bar { position: absolute; z-index: 40; left: 0; bottom: 29px; display: flex !important; width: 100%; color: #fff; font: 11px/1 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif; transition: opacity .2s ease,visibility .2s ease; }
+#chzzk-plus-playback-bar .live-bar-ui { display: flex; align-items: center; gap: 11px; width: 100%; padding: 7px 10px 6px; }
+#chzzk-plus-playback-bar .slide-box { position: relative; display: flex; flex: 1; align-items: center; min-width: 70px; height: 5px; padding: 9px 0; cursor: pointer; background: transparent; outline: none; }
+#chzzk-plus-playback-bar .slide-box .track,#chzzk-plus-playback-bar .slide-box .rng { position: absolute; left: 0; height: 3px; border-radius: 999px; transition: width .1s linear,height .15s ease; }
+#chzzk-plus-playback-bar .slide-box .track { width: 100%; background: rgba(255,255,255,.26); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+#chzzk-plus-playback-bar .slide-box .rng { width: 100%; background: var(--chzzk-plus-green); box-shadow: 0 0 7px rgba(0,255,163,.3); }
+#chzzk-plus-playback-bar .slide-box:hover .track,#chzzk-plus-playback-bar .slide-box:focus-visible .track,#chzzk-plus-playback-bar .slide-box:hover .rng,#chzzk-plus-playback-bar .slide-box:focus-visible .rng { height: 5px; }
+#chzzk-plus-playback-bar .slide-box:focus-visible { border-radius: 4px; box-shadow: 0 0 0 2px rgba(255,255,255,.8); }
+#chzzk-plus-playback-bar.no-anim .rng { transition: none !important; }
+#chzzk-plus-playback-bar .thumb { position: absolute; top: 50%; right: 0; width: 11px; height: 11px; border: 2px solid var(--chzzk-plus-green); border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.55); opacity: 0; transform: translate(50%,-50%) scale(.75); transition: opacity .12s ease,transform .12s ease; }
+#chzzk-plus-playback-bar .slide-box:hover .thumb,#chzzk-plus-playback-bar .slide-box:focus-visible .thumb,#chzzk-plus-playback-bar .thumb.visible { opacity: 1; transform: translate(50%,-50%) scale(1); }
+#chzzk-plus-playback-bar .live-edge { position: absolute; right: -1px; width: 3px; height: 9px; border-radius: 999px; background: rgba(255,255,255,.72); pointer-events: none; }
+#chzzk-plus-playback-bar .time { display: flex; flex: 0 0 auto; align-items: center; gap: 5px; }
+#chzzk-plus-playback-bar .position { max-width: 92px; overflow: hidden; color: rgba(255,255,255,.8); font-weight: 650; font-variant-numeric: tabular-nums; text-overflow: ellipsis; white-space: nowrap; }
+#chzzk-plus-playback-bar .position[hidden] { display: none; }
+#chzzk-plus-playback-bar .go { display: inline-flex; min-width: 51px; height: 24px; padding: 0 9px; border: 1px solid rgba(255,255,255,.16); border-radius: 7px; align-items: center; justify-content: center; gap: 5px; color: #f3f5f4; background: rgba(45,49,47,.88); font: 750 10px/1 -apple-system,BlinkMacSystemFont,sans-serif; cursor: pointer; white-space: nowrap; transition: color .14s ease,background-color .14s ease,border-color .14s ease; }
+#chzzk-plus-playback-bar .go i { width: 6px; height: 6px; border-radius: 50%; background: #9aa09d; }
+#chzzk-plus-playback-bar .go:hover { border-color: rgba(0,255,163,.5); background: rgba(23,35,30,.94); }
+#chzzk-plus-playback-bar .go.live { border-color: rgba(0,255,163,.32); color: var(--chzzk-plus-green); background: rgba(0,255,163,.11); cursor: default; }
+#chzzk-plus-playback-bar .go.live i { background: var(--chzzk-plus-green); box-shadow: 0 0 7px rgba(0,255,163,.75); }
+#chzzk-plus-playback-bar .go:disabled { opacity: 1; }
+#chzzk-plus-playback-bar .hover-tip { position: absolute; z-index: 2; top: 0; padding: 5px 8px; border: 1px solid rgba(255,255,255,.11); border-radius: 6px; color: #fff; background: rgba(18,20,19,.96); box-shadow: 0 5px 16px rgba(0,0,0,.38); font-size: 10px; font-variant-numeric: tabular-nums; opacity: 0; transform: translate(-50%,-155%); transition: opacity .12s; white-space: nowrap; pointer-events: none; }
+#chzzk-plus-playback-bar .hover-x { position: absolute; top: 3px; bottom: 3px; width: 1px; background: rgba(255,255,255,.9); opacity: 0; transform: translateX(-.5px); transition: opacity .12s; pointer-events: none; }
+#chzzk-plus-playback-bar .hover-tip.show,#chzzk-plus-playback-bar .hover-x.show { opacity: 1; }
+/* 네이티브 진행바 클래스를 복사해 `pzp-pc--controls`의 opacity 규칙을 함께 사용합니다. */
+.pzp-pc--hide-ui #chzzk-plus-playback-bar { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }

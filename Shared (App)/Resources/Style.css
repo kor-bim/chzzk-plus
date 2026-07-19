@@ -9,9 +9,6 @@ h1 em, p b { color: var(--green); font-style: normal; }
 p { margin: 0; color: #9aa59f; }
 button { padding: 10px 15px; border: 1px solid var(--green); border-radius: 8px; color: #000; background: var(--green); font: 700 13px -apple-system, BlinkMacSystemFont, sans-serif; cursor: pointer; }
 button:active { transform: translateY(1px); }
-body:not(.platform-mac, .platform-ios) :is(.platform-mac, .platform-ios),
-body.platform-ios .platform-mac,
-body.platform-mac .platform-ios,
 body:not(.state-on, .state-off) :is(.state-on, .state-off),
 body.state-on :is(.state-off, .state-unknown),
 body.state-off :is(.state-on, .state-unknown) { display: none; }

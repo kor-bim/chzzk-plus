@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { FeatureRegistry, type FeatureModule } from "../src/core/feature";
-import { DEFAULT_SETTINGS } from "../src/core/settings";
+import { FeatureRegistry, type FeatureModule } from "../src/shared/feature-manager";
+import { DEFAULT_SETTINGS } from "../src/shared/settings";
 
 function feature(id = "test"): FeatureModule {
   return {

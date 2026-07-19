@@ -1,0 +1,20 @@
+@import "./player/stream-stats.css";
+@import "./player/video-quality.css";
+@import "./player/sharpness.css";
+@import "./live/broadcast-preview.css";
+@import "./live/playback-bar.css";
+@import "./vod/resume-playback.css";
+@import "./chat/blinded-message.css";
+@import "./ad-block/ad-screen-cleanup.css";
+
+:root { --chzzk-plus-green: #00FFA3; --chzzk-plus-black: #000000; }
+html.chzzk-plus-capturing .pzp-pc__top,
+html.chzzk-plus-capturing .pzp-pc__bottom,
+html.chzzk-plus-capturing .pzp-pc__center,
+html.chzzk-plus-capturing .pzp-pc__dimmed,
+html.chzzk-plus-capturing #chzzk-plus-screenshot-button { visibility: hidden !important; opacity: 0 !important; }
+.pzp-pc--hide-ui #chzzk-plus-screenshot-button { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+#chzzk-plus-screenshot-button { color: #fff; transition: opacity .2s ease,visibility .2s ease; }
+#chzzk-plus-toast { position: fixed; z-index: 2147483647; left: 50%; bottom: 28px; max-width: min(420px, calc(100vw - 32px)); padding: 9px 13px; border: 1px solid var(--chzzk-plus-green); border-radius: 8px; color: #fff; background: #000; box-shadow: 0 8px 30px rgba(0,0,0,.5); font: 600 12px/1.35 -apple-system,BlinkMacSystemFont,sans-serif; opacity: 0; transform: translate(-50%,8px); transition: opacity .16s ease,transform .16s ease; pointer-events: none; }
+#chzzk-plus-toast.show { opacity: 1; transform: translate(-50%,0); }
+#chzzk-plus-toast[data-tone="error"] { border-color: #ff4d67; }

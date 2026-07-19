@@ -1,0 +1,4 @@
+.chzzk-plus-hide-ranking :is([class*="live_chatting_ranking_container"],div[class*="_container_"]:has(>strong[class*="_ranking_"]),div:has(>button[class*="ranking_button"]),div:has(>strong[class*="ranking_close"]),[class*="live_chatting_message_rank"],[class*="_rank_"]) { display: none !important; }
+.chzzk-plus-blinded { cursor: help !important; }
+.chzzk-plus-blinded-restored { color: var(--chzzk-plus-green) !important; font-style: italic; }
+.chzzk-plus-blinded-restored::before { content: "[원본] "; font-size: .82em; font-weight: 700; }

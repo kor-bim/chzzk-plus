@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_SETTINGS, normalizeSettings } from "../src/core/settings";
+import { DEFAULT_SETTINGS, normalizeSettings } from "../src/shared/settings";
 
 describe("normalizeSettings", () => {
   it("uses defaults for missing and invalid values", () => {
@@ -19,4 +19,3 @@ describe("normalizeSettings", () => {
     expect(normalizeSettings({ unknown: true })).not.toHaveProperty("unknown");
   });
 });
-
